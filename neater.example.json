@@ -1,3 +1,33 @@
 {
-    
+    "output": "./tmp/sort",
+    "operation": "copy",
+    "override": false,
+    "rules": {
+        "movie": [
+            {
+                "rule": "Golang",
+                "target": "Tutorial/Programming/Golang"
+            },
+            {
+                "rule": "PHP",
+                "target": "Tutorial/Programming/PHP"
+            }
+        ],
+        "others": [
+            {
+                "rule": "*",
+                "target": "Unknow"
+            }
+        ]
+    },
+    "filters": [
+        {
+            "whitelist": [".mp4", ".avi", ".flv"],
+            "rule": "movie"
+        },
+        {
+            "blacklist": [".py"],
+            "rule": "others"
+        }
+    ]
 }
