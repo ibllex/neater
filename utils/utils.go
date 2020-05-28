@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"fmt"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -25,4 +27,38 @@ func GetCurrentPath() string {
 	}
 
 	return dir
+}
+
+// IndexOfStringList Find the position of a string in a string list
+// return -1 if not found in string list
+func IndexOfStringList(value string, list []string) int {
+	for i := 0; i < len(list); i++ {
+		if list[i] == value {
+			return i
+		}
+	}
+
+	return -1
+}
+
+// Copy file from src path to dist path
+func Copy(src, dest string) (written int64, err error) {
+	srcFile, err := os.Open(src)
+
+	if err != nil {
+		fmt.Printf("open file err = %v\n", err)
+		return
+	}
+
+	defer srcFile.Close()
+
+	dstFile, err := os.OpenFile(dest, os.O_WRONLY|os.O_CREATE, 0755)
+	if err != nil {
+		fmt.Printf("open file err = %v\n", err)
+		return
+	}
+
+	defer dstFile.Close()
+
+	return io.Copy(dstFile, srcFile)
 }
